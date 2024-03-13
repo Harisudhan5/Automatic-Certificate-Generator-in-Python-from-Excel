@@ -18,20 +18,16 @@ def convert_image_to_pdf(image,output_file_name,name):
     except:
         return f"An Error Occured for {name}"
 
-def get_centered_value(name,x):
-    text_size = cv2.getTextSize(name, cv2.FONT_HERSHEY_SIMPLEX, 2.5, 5)[0]
-    x_centered = x - (text_size[0] // 2)
-    return 
 
 def generate_certs():
-    df = pd.read_excel('Untitled spreadsheet.xlsx')
+    df = pd.read_excel('./Untitled spreadsheet.xlsx')
     names = df["Name"]
     for name in names:
         name = name.strip()
         template = cv2.imread('Blue Simple Achievement Certificate.png')
         x, y = 980,650
-
-        x_centered = get_centered_value(name,x)
+        text_size = cv2.getTextSize(name, cv2.FONT_HERSHEY_SIMPLEX, 2.5, 5)[0]
+        x_centered = x - (text_size[0] // 2)
         
         email = df[df['Name'] == name].iloc[0]['Email']
         cv2.putText(template, name, (x_centered, y), cv2.FONT_HERSHEY_SIMPLEX, 2.5, (255, 0, 0), 5, cv2.LINE_AA)
