@@ -30,11 +30,11 @@ try:
             # Extract email address from the filename
             recipient_email = extract_email(filename)
 
-            # Create a MIMEMultipart object
+            # Create a MIMEMultipart object 
             message = MIMEMultipart()
             message['From'] = email_address
             message['To'] = recipient_email
-            message['Subject'] = 'This is a mail Automation '
+            message['Subject'] = 'MLSC Cloud Security Workshop Participation Certificate'
 
             # Attach the PDF file
             with open(os.path.join(folder_path, filename), 'rb') as attachment:
@@ -45,7 +45,21 @@ try:
                 message.attach(part)
 
             # Add body to the email
-            body = "Dear recipient,\n\nThis is the body of the email. You can add your message here.\n\nBest regards,\nSender"
+            body = '''
+Hey folks !!
+Thank you for paying attention through out the workshop .Here is your certificate .
+Stay tuned for upcoming for upcoming events and workshops 
+
+Follow the links and join our community on regular updates of events of our MLSC community, Microsoft events and Microsoft Learn Challenges and more opportunities....
+Follow this link to join my WhatsApp group: https://lnkd.in/gPqf-vi7
+
+Follow the MLSC official LinkedIn page for more updates:
+
+https://lnkd.in/gDksfiux
+
+
+https://lnkd.in/g8NKX4Un 
+'''
             message.attach(MIMEText(body, 'plain'))
 
             # Send the email
