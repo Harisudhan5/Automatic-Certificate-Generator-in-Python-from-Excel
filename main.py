@@ -20,14 +20,14 @@ def convert_image_to_pdf(image, output_file_name, name):
 
 def generate_certs():
     try:
-        df = pd.read_excel('./Cyber_workshp.xlsx')
+        df = pd.read_excel('./Untitled spreadsheet.xlsx')
         names = df["Name"]
         cnt = 0
         for name in names:
             cnt += 1
             name = name.strip()
-            template = cv2.imread('Certificate_template.jpg')
-            x, y = 100, 290
+            template = cv2.imread('./Blue Simple Achievement Certificate.png')
+            x, y = 980,647
             email = df[df['Name'] == name].iloc[0]['Email']
 
             template_rgb = cv2.cvtColor(template, cv2.COLOR_BGR2RGB)
@@ -35,8 +35,8 @@ def generate_certs():
 
             # Write text on the image using PIL
             draw = ImageDraw.Draw(pil_image)
-            font = ImageFont.truetype("arial.ttf", 36)  # You can adjust font type and size 
-            draw.text((52, 290), name, fill=(0, 0, 0), font=font)
+            font = ImageFont.truetype("arial.ttf", 50)  # adjust font type and size  
+            draw.text((x,y), name, fill=(0, 0, 0), font=font)
 
             # Convert back to OpenCV format
             template_with_text = cv2.cvtColor(np.array(pil_image), cv2.COLOR_RGB2BGR)
