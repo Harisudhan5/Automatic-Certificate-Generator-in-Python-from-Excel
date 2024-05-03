@@ -1,7 +1,7 @@
 import cv2
 import pandas as pd
 import os
-from PIL import Image, ImageDraw,ImageFont
+from PIL import Image, ImageDraw, ImageFont
 import numpy as np
 import img2pdf 
 
@@ -20,23 +20,31 @@ def convert_image_to_pdf(image, output_file_name, name):
 
 def generate_certs():
     try:
-        df = pd.read_excel('./Untitled spreadsheet.xlsx')
+        df = pd.read_excel('e.xlsx')  # Assuming the Excel file name is 'e.xlsx'
+        print(df)
         names = df["Name"]
         cnt = 0
         for name in names:
+            print(name)
             cnt += 1
             name = name.strip()
-            template = cv2.imread('./Blue Simple Achievement Certificate.png')
-            x, y = 980,647
-            email = df[df['Name'] == name].iloc[0]['Email']
+            template = cv2.imread('./template.jpg')
+            x, y = 980, 647
+            
+            # Print information to understand the data
+            print(f"Name: {name}")
+            print("Unique Names in DataFrame:", df['Name'].unique())
+            
+            # Locate the row based on the name and extract the email
+            email = df.loc[df['Name'] == name, 'Email'].iloc[0]
+            print(f"Email: {email}")
 
             template_rgb = cv2.cvtColor(template, cv2.COLOR_BGR2RGB)
             pil_image = Image.fromarray(template_rgb)
-
             # Write text on the image using PIL
             draw = ImageDraw.Draw(pil_image)
             font = ImageFont.truetype("arial.ttf", 50)  # adjust font type and size  
-            draw.text((x,y), name, fill=(0, 0, 0), font=font)
+            draw.text((60, 267), name, fill=((25, 151, 251)), font=font)
 
             # Convert back to OpenCV format
             template_with_text = cv2.cvtColor(np.array(pil_image), cv2.COLOR_RGB2BGR)
@@ -49,6 +57,6 @@ def generate_certs():
             convert_image_to_pdf(template_with_text, output_file_name, name)
             print(cnt)
     except Exception as e:
-        print(f"cenrticficate not done for {name} , {email}, {e}")
+        print(f"Certificate not generated for {name}, {email}. Error: {e}")
 
 generate_certs()

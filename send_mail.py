@@ -47,7 +47,7 @@ try:
             # Add body to the email
             body = '''
 Hey folks !!
-Thank you for paying attention through out the workshop .Here is your certificate .
+Thank you for participating in the Microsoft Power Platform Skill Challenge .Here is your certificate .
 Stay tuned for upcoming for upcoming events and workshops 
 
 Follow the links and join our community on regular updates of events of our MLSC community, Microsoft events and Microsoft Learn Challenges and more opportunities....
